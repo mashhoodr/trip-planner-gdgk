@@ -52,11 +52,11 @@ the ruleset.
 ## Kill switches
 ```bash
 # During the talk: only accounts older than 24 h can open issues or comment
-gh api -X PUT repos/mashhoodr/trip-planner/interaction-limits -f limit=existing_users -f expiry=one_day
+gh api -X PUT repos/mashhoodr/trip-planner-gdgk/interaction-limits -f limit=existing_users -f expiry=one_day
 # Emergency: only collaborators
-gh api -X PUT repos/mashhoodr/trip-planner/interaction-limits -f limit=collaborators_only -f expiry=one_day
+gh api -X PUT repos/mashhoodr/trip-planner-gdgk/interaction-limits -f limit=collaborators_only -f expiry=one_day
 # Lift the limit
-gh api -X DELETE repos/mashhoodr/trip-planner/interaction-limits
+gh api -X DELETE repos/mashhoodr/trip-planner-gdgk/interaction-limits
 ```
 Stop the loop: cancel the `/schedule` task in Antigravity.
 
@@ -65,8 +65,8 @@ Stop the loop: cancel the `/schedule` task in Antigravity.
 (the guard blocks it), and the ruleset blocks direct pushes. To change them, pause the
 ruleset, push, and turn it back on:
 ```bash
-RS=$(gh api repos/mashhoodr/trip-planner/rulesets --jq '.[0].id')
-gh api -X PUT repos/mashhoodr/trip-planner/rulesets/$RS -f enforcement=disabled
+RS=$(gh api repos/mashhoodr/trip-planner-gdgk/rulesets --jq '.[0].id')
+gh api -X PUT repos/mashhoodr/trip-planner-gdgk/rulesets/$RS -f enforcement=disabled
 git push origin main
-gh api -X PUT repos/mashhoodr/trip-planner/rulesets/$RS -f enforcement=active
+gh api -X PUT repos/mashhoodr/trip-planner-gdgk/rulesets/$RS -f enforcement=active
 ```

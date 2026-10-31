@@ -1,5 +1,5 @@
 {
-  "name": "trip-planner",
+  "name": "trip-planner-gdgk",
   "version": "1.0.0",
   "private": true,
   "description": "A tiny trip budget planner, built to be fixed by an agent loop (Pehla Qadam 2026 demo).",
