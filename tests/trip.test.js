@@ -1,7 +1,16 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { addStop, addExpense, removeExpense, sortStops, formatPKR, formatUSD } from '../src/trip.js';
+import { dayCount, addStop, addExpense, removeExpense, sortStops, formatPKR, formatUSD } from '../src/trip.js';
 import { hash } from '../src/user.js';
+
+test('dayCount calculates days correctly across month and year boundaries', () => {
+  assert.equal(dayCount('2026-12-26', '2027-01-02'), 7);
+  assert.equal(dayCount('2026-10-20', '2026-10-22'), 2);
+  assert.equal(dayCount('2026-10-20', '2026-10-20'), 0);
+  assert.equal(dayCount('2026-10-22', '2026-10-20'), 0);
+  assert.equal(dayCount('', '2026-10-20'), 0);
+  assert.equal(dayCount('2026-10-20', ''), 0);
+});
 
 test('addStop ignores empty names', () => {
   assert.deepEqual(addStop([], { name: '  ', date: '2026-10-20' }), []);
