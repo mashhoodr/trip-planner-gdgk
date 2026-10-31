@@ -1,5 +1,5 @@
 import {
-  dayCount, total, toUSD, sortStops, removeStop, addStop, addExpense, removeExpense, formatPKR, formatUSD,
+  dayCount, total, toUSD, sortStops, removeStop, addStop, addExpense, removeExpense, formatPKR, formatUSD, tripSummary,
 } from './trip.js';
 import { getRate } from './rates.js';
 import { getUserId } from './user.js';
@@ -45,9 +45,25 @@ let trip = load();
 let rate = null;
 
 function render() {
-  const sum = total(trip.expenses);
+  const summary = tripSummary(trip);
+  const sum = summary.total;
   const shown = sortStops(trip.stops);
   $('#app').innerHTML = `
+    <section class="card glance" aria-label="Trip at a glance">
+      <div class="glance-item">
+        <span class="glance-num">${summary.days}</span>
+        <span class="glance-label">Days</span>
+      </div>
+      <div class="glance-item">
+        <span class="glance-num">${summary.stops}</span>
+        <span class="glance-label">Stops</span>
+      </div>
+      <div class="glance-item">
+        <span class="glance-num">${formatPKR(summary.total)}</span>
+        <span class="glance-label">Total budget</span>
+      </div>
+    </section>
+
     <section class="card">
       <label class="name-label" for="trip-name">Trip name</label>
       <div class="name-field">

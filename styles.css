@@ -64,6 +64,38 @@ a { color: inherit; }
 
 /* Cards: the slides' rounded frames with a thin yellow border */
 .card { background: #fff; border: 2px solid var(--yellow); border-radius: var(--radius); padding: 16px; margin: 16px 0; }
+.card.glance {
+  background: var(--yellow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 16px 12px;
+}
+.glance-item {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.glance-item:last-child {
+  flex: 1.2;
+}
+.glance-num {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+.glance-label {
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-top: 4px;
+  white-space: nowrap;
+}
 .name-label { display: block; font-size: .85rem; color: var(--muted); }
 .name-field { position: relative; }
 .title {
