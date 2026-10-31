@@ -57,6 +57,16 @@ export function formatPKR(n) {
   return 'Rs ' + Math.round(n).toLocaleString('en-US');
 }
 
+/** Summary statistics for trip at a glance: days, stops count, and total budget. */
+export function tripSummary(trip) {
+  if (!trip) return { days: 0, stops: 0, total: 0 };
+  return {
+    days: dayCount(trip.start, trip.end),
+    stops: (trip.stops || []).length,
+    total: total(trip.expenses || []),
+  };
+}
+
 /** "$44.64" */
 export function formatUSD(n) {
   return '$' + n.toFixed(2);

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { addStop, addExpense, removeExpense, sortStops, formatPKR, formatUSD } from '../src/trip.js';
+import { addStop, addExpense, removeExpense, sortStops, formatPKR, formatUSD, tripSummary } from '../src/trip.js';
 import { hash } from '../src/user.js';
 
 test('addStop ignores empty names', () => {
@@ -38,4 +38,28 @@ test('removeExpense removes only that item', () => {
   const list = [{ label: 'A', amount: 1 }, { label: 'B', amount: 2 }, { label: 'C', amount: 3 }];
   assert.deepEqual(removeExpense(list, 1).map((e) => e.label), ['A', 'C']);
   assert.equal(list.length, 3);
+});
+
+test('tripSummary computes days, stop count, and budget total', () => {
+  const trip = {
+    start: '2026-12-01',
+    end: '2026-12-05',
+    stops: [
+      { name: 'A', date: '2026-12-01' },
+      { name: 'B', date: '2026-12-03' },
+    ],
+    expenses: [
+      { label: 'Hotel', amount: 5000 },
+      { label: 'Food', amount: 2000 },
+    ],
+  };
+  const summary = tripSummary(trip);
+  assert.equal(summary.days, 4);
+  assert.equal(summary.stops, 2);
+  assert.equal(typeof summary.total, 'number');
+});
+
+test('tripSummary handles empty input gracefully', () => {
+  assert.deepEqual(tripSummary(null), { days: 0, stops: 0, total: 0 });
+  assert.deepEqual(tripSummary({}), { days: 0, stops: 0, total: 0 });
 });
